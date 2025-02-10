@@ -1,23 +1,38 @@
 import { useState } from "react";
+import AddTask from "./components/AddTask";
+import Tasks from "./components/Task";
 
 function App() {
-  // State(estado) é um objeto que contém dados que podem mudar ao longo do tempo.
-  // O estado é um dos conceitos mais importantes do React.
-  // O useState é um Hook que permite adicionar estado a um componente funcional.
-  // O useState retorna um array com dois elementos
-  // o State faz o componente ser atualizado toda vez que o estado muda.
-  const [message, setMessage] = useState("Olá, mundo!");
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Doctor's Appointment",
+      description: "Doctor's appointment at 10:30am on Monday",
+      isCompleted: false,
+    },
+    {
+      id: 2,
+      title: "Meeting at School",
+      description: "Parent teacher meeting at school at 1:30pm on Tuesday",
+      isCompleted: false,
+    },
+    {
+      id: 3,
+      title: "Food Shopping",
+      description: "Buy groceries at 5:00pm on Wednesday",
+      isCompleted: false,
+    },
+  ]);
 
   return (
-    <div>
-      <h1>{message}</h1>
-      <button
-        onClick={() => {
-          setMessage("Olá, fui clicado!");
-        }}
-      >
-        Mudar mensagem
-      </button>
+    <div className="e-screen h-screen bg-slate-500 flex justify-center p-6">
+      <div className="w-[500px]">
+        <h1 className="text-3xl text-slate-100 font-bold text-center">
+          Task Manager
+        </h1>
+        <AddTask />
+        <Tasks tasks={tasks} />
+      </div>
     </div>
   );
 }
