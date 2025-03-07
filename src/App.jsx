@@ -1,29 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTask from "./components/AddTask";
 import Tasks from "./components/Tasks";
 import { v4 } from "uuid";
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      title: "Doctor's Appointment",
-      description: "Doctor's appointment at 10:30am on Monday",
-      isCompleted: false,
-    },
-    {
-      id: 2,
-      title: "Meeting at School",
-      description: "Parent teacher meeting at school at 1:30pm on Tuesday",
-      isCompleted: false,
-    },
-    {
-      id: 3,
-      title: "Food Shopping",
-      description: "Buy groceries at 5:00pm on Wednesday",
-      isCompleted: false,
-    },
-  ]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
+
+  //sempre que o estado de [tasks] for atualizado, o useEffect será executado
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   function onTaskClick(taskId) {
     const newTasks = tasks.map((task) => {
